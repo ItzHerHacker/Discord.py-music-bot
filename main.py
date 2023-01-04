@@ -66,7 +66,7 @@ async def on_wavelink_track_end(player: wavelink.Player, track: wavelink.Track, 
     next_song = vc.queue.get()
     await vc.play(next_song)
     emb = discord.Embed(title="**Now Playing**",
-                         description=f"\n{next_song.title}", color=0x00fffb)
+                         description=f"\n{next_song.title}", color=0x2f3136)
     await ctx.send(embed=emb)
 
 
@@ -75,7 +75,7 @@ async def play_next(ctx):
         next_song = ctx.voice_client.queue.get()
         await ctx.voice_client.play(next_song)
         emb = discord.Embed(title="**Now Playing**",
-                             description=f"\n{next_song.title}", color=0x00fffb)
+                             description=f"\n{next_song.title}", color=0x2f3136)
         await ctx.send(embed=emb)
     else:
         await ctx.voice_client.stop()
@@ -92,7 +92,7 @@ async def play(ctx, *, search: wavelink.YouTubeTrack):
         vc: wavelink.Player = await ctx.author.voice.channel.connect(cls=wavelink.Player)
     elif not getattr(ctx.author.voice, "channel", None):
         embed = discord.Embed(
-            description=f"{ctx.author.mention}: No song(s) are playing.", color=0x00fffb)
+            description=f"{ctx.author.mention}: No song(s) are playing.", color=0x2f3136)
         return await ctx.send(embed=embed)
     else:
         vc: wavelink.Player = ctx.voice_client
@@ -100,7 +100,7 @@ async def play(ctx, *, search: wavelink.YouTubeTrack):
     if vc.queue.is_empty and vc.is_connected and vc._source is None:
         await vc.play(search)
         embe = discord.Embed(
-            description=f"\n [{search.title}]({search.uri}) ", color=0x00fffb)
+            description=f"\n [{search.title}]({search.uri}) ", color=0x2f3136)
         embe.set_author(name=f"|  Now Playing", icon_url=f"{ctx.author.avatar}")
         embe.set_image(url=search.thumbnail)
         await ctx.send(embed=embe)
@@ -108,10 +108,9 @@ async def play(ctx, *, search: wavelink.YouTubeTrack):
         print("Added to queue")
         await vc.queue.put_wait(search)
         emb = discord.Embed(
-            description=f"\n [{search.title}]({search.uri}) **to the queue.**", color=0x00fffb)
+            description=f"\n [{search.title}]({search.uri}) **to the queue.**", color=0x2f3136)
         emb.set_author(name=f"|  Track queued", icon_url=f"{ctx.author.avatar}")
         emb.set_thumbnail(url=search.thumbnail)
-	#emb.set_footer(name=f"Requested By {ctx.author.name}", icon_url=f"{ctx.author.avatar}")
         await ctx.send(embed=emb)
     vc.ctx = ctx
     setattr(vc, "loop", False)
@@ -122,7 +121,7 @@ async def queue(ctx):
         vc: wavelink.Player = await ctx.author.voice.channel.connect(cls=wavelink.Player)
     elif not getattr(ctx.author.voice, "channel", None):
         embed = discord.Embed(
-            description=f"{ctx.author.mention}: No song(s) are playing.", color=0x00fffb)
+            description=f"{ctx.author.mention}: No song(s) are playing.", color=0x2f3136)
         return await ctx.send(embed=embed)
 
     else:
@@ -130,9 +129,9 @@ async def queue(ctx):
 
     if vc.queue.is_empty:
         emb = discord.Embed(
-            description=f"**{ctx.author.mention}: The queue is empty. Try adding songs.**",color=0x00fffb)
+            description=f"**{ctx.author.mention}: The queue is empty. Try adding songs.**",color=0x2f3136)
         return await ctx.send(embed=emb)
-    lp = discord.Embed(title="Queue",color=0xF181FF)
+    lp = discord.Embed(title="Queue",color=0x2f3136)
     queue = vc.queue.copy()
     song_count = 0
     for song in queue:
@@ -199,7 +198,7 @@ async def join(ctx: commands.Context, channel: typing.Optional[discord.VoiceChan
         if player.is_connected():
             return await ctx.send("bot is already connected to a voice channel")
     await channel.connect(cls=wavelink.Player)
-    mbed=discord.Embed(title=f"Connected to {channel.name}", color=0x00fffb)
+    mbed=discord.Embed(title=f"Connected to {channel.name}", color=0x2f3136)
     await ctx.send(embed=mbed)
   
   
